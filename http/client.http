@@ -1,0 +1,14 @@
+GET http://localhost:7000/v1/api/client
+Accept: application/json
+
+####
+POST http://localhost:7000/v1/api/client
+Content-Type: application/json
+
+{
+  "name": "Diego",
+  "lastname": "Lima",
+  "email": "dieli@gmail.com",
+  "phone": "64167817",
+  "addressId": 1
+}
