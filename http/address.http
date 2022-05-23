@@ -1,0 +1,11 @@
+GET http://localhost:7000/v1/api/address
+Accept: application/json
+
+####
+POST http://localhost:7000/v1/api/address
+Content-Type: application/json
+
+{
+  "address": "Cochabamba",
+  "postalCode": "32456"
+}

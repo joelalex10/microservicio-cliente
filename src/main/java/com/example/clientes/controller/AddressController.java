@@ -1,7 +1,10 @@
 package com.example.clientes.controller;
 
+import com.example.clientes.bl.AddressBl;
 import com.example.clientes.bl.ClientBl;
+import com.example.clientes.dto.AddressDto;
 import com.example.clientes.dto.ClientDto;
+import com.example.clientes.entity.Address;
 import com.example.clientes.entity.Client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,35 +20,31 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/v1/api/client")
-public class ClientController {
-
+@RequestMapping("/v1/api/address")
+public class AddressController {
     private static Logger LOGGER = LoggerFactory.getLogger(ClientBl.class);
 
-    private ClientBl clientBl;
+    private AddressBl addressBl;
 
     @Autowired
-    public ClientController(ClientBl clientBl) {
-        this.clientBl = clientBl;
+    public AddressController(AddressBl addressBl) {
+        this.addressBl = addressBl;
     }
-
-
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> getAllClients() {
+    public ResponseEntity<?> getAllAddress() {
         //LOGGER.info("Invocando al servicio REST para obtener el listado de autores con KEY: {}", key);
-        List<ClientDto> clientList = clientBl.findAllClients();
-        LOGGER.info("Invocacion exitosa para obtener el listado de autores {}", clientList);
-        return new ResponseEntity<>(clientList, HttpStatus.OK);
+        List<AddressDto> addressAllList = addressBl.findAllAddress();
+        LOGGER.info("Invocacion exitosa para obtener el listado de autores {}", addressAllList);
+        return new ResponseEntity<>(addressAllList, HttpStatus.OK);
     }
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> postClients(@RequestBody ClientDto clientDto) {
-        Client client = this.clientBl.insertNewClient(clientDto);
-        if(Objects.nonNull(client)){
-            return new ResponseEntity<>(client, HttpStatus.CREATED);
+    public ResponseEntity<?> postClients(@RequestBody AddressDto addressDto) {
+        Address address = this.addressBl.insertNewAddress(addressDto);
+        if(Objects.nonNull(address)){
+            return new ResponseEntity<>(address, HttpStatus.CREATED);
         }else{
             return new ResponseEntity<>("NO SE PUEDO REALIZAR OPERACION",
                     HttpStatus.BAD_REQUEST);
         }
     }
-
 }
