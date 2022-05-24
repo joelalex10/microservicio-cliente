@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
 public class ClientBl {
@@ -47,5 +48,17 @@ public class ClientBl {
         Client newClient =this.clientRepository.save(client);
         return newClient;
 
+    }
+    public boolean deleteClient(Integer idClient){
+
+        Optional<Client> optionalClient = this.clientRepository.findById(idClient);
+        if(optionalClient.isPresent()){
+            Client client = optionalClient.get();
+            client.setStatus(0);
+            this.clientRepository.save(client);
+            return true;
+        }else{
+            return false;
+        }
     }
 }

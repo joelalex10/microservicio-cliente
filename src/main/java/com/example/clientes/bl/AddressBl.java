@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
 public class AddressBl {
@@ -43,7 +44,17 @@ public class AddressBl {
 
         Address newAddress =this.addressRepository.save(address);
         return newAddress;
-
+    }
+    public boolean deleteAddress(Integer addressId){
+        Optional<Address> optionalAddress = this.addressRepository.findById(addressId);
+        if(optionalAddress.isPresent()){
+            Address address = optionalAddress.get();
+            address.setStatus(0);
+            this.addressRepository.save(address);
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

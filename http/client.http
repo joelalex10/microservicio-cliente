@@ -6,9 +6,13 @@ POST http://localhost:7000/v1/api/client
 Content-Type: application/json
 
 {
-  "name": "Diego",
-  "lastname": "Lima",
-  "email": "dieli@gmail.com",
-  "phone": "64167817",
-  "addressId": 1
+  "name": "Ricardo",
+  "lastname": "Sornoza",
+  "email": "ricsor@gmail.com",
+  "phone": "79011432",
+  "addressId": 3
 }
+
+####
+DELETE http://localhost:7000/v1/api/client/7
+Content-Type: application/json

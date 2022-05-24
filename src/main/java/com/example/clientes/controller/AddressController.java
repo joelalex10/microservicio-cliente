@@ -11,10 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -44,6 +41,17 @@ public class AddressController {
             return new ResponseEntity<>(address, HttpStatus.CREATED);
         }else{
             return new ResponseEntity<>("NO SE PUEDO REALIZAR OPERACION",
+                    HttpStatus.BAD_REQUEST);
+        }
+    }
+    @RequestMapping(path = "/{idAddress}",method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteClient(@PathVariable("idAddress") Integer id) {
+        boolean result = this.addressBl.deleteAddress(id);
+        if(result){
+            return new ResponseEntity<>("SE ELIMINO DIRECCION CORRECTAMENTE",
+                    HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("NO SE ENCONTRO DIRECCION",
                     HttpStatus.BAD_REQUEST);
         }
     }

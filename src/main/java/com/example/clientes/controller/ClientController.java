@@ -8,10 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -44,6 +41,17 @@ public class ClientController {
             return new ResponseEntity<>(client, HttpStatus.CREATED);
         }else{
             return new ResponseEntity<>("NO SE PUEDO REALIZAR OPERACION",
+                    HttpStatus.BAD_REQUEST);
+        }
+    }
+    @RequestMapping(path = "/{idClient}",method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteClient(@PathVariable("idClient") Integer id) {
+        boolean result = this.clientBl.deleteClient(id);
+        if(result){
+            return new ResponseEntity<>("SE ELIMINO CLIENTE CORRECTAMENTE",
+                    HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("NO SE ENCONTRO CLIENTE",
                     HttpStatus.BAD_REQUEST);
         }
     }
