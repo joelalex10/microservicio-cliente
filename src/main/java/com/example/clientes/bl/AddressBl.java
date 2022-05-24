@@ -27,14 +27,36 @@ public class AddressBl {
     public List<AddressDto> findAllAddress() {
         LOGGER.info("DATABASE: Iniciando consulta para obtener la lista de direcciones");
         List<Address> addressList = (List<Address>) this.addressRepository.findAll();
-        List<AddressDto> addressDtoList =addressList.stream().map(address -> new AddressDto(
-                address.getAddressId(),
-                address.getAddress(),
-                address.getPostalCode())
-        ).collect(Collectors.toList());
+        List<AddressDto> addressDtoList =addressList.stream()
+                .filter(
+                        data ->  data.getStatus()==1
+                ).map(
+                        address -> new AddressDto(
+                                address.getAddressId(),
+                                address.getAddress(),
+                                address.getPostalCode())
+                ).collect(
+                        Collectors.toList()
+                );
 
         LOGGER.info("DATABASE-SUCCESS: Consulta exitosa para obtener el listado de direcciones {}", addressDtoList);
         return addressDtoList;
+    }
+    public AddressDto findAddressById(Integer addressId){
+        Optional<Address> optionalAddress= this.addressRepository.findById(addressId);
+        if(optionalAddress.isPresent()){
+            if(optionalAddress.get().getStatus()==1){
+                AddressDto addressDto=new AddressDto();
+                addressDto.setAddressId(optionalAddress.get().getAddressId());
+                addressDto.setAddress(optionalAddress.get().getAddress());
+                addressDto.setPostalCode(optionalAddress.get().getPostalCode());
+                return addressDto;
+            }else{
+                return null;
+            }
+        }else{
+            return null;
+        }
     }
     public Address insertNewAddress(AddressDto addressDto){
         Address address = new Address();

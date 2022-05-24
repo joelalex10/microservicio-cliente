@@ -1,6 +1,7 @@
 package com.example.clientes.controller;
 
 import com.example.clientes.bl.ClientBl;
+import com.example.clientes.dto.AddressDto;
 import com.example.clientes.dto.ClientDto;
 import com.example.clientes.entity.Client;
 import org.slf4j.Logger;
@@ -33,6 +34,16 @@ public class ClientController {
         List<ClientDto> clientList = clientBl.findAllClients();
         LOGGER.info("Invocacion exitosa para obtener el listado de autores {}", clientList);
         return new ResponseEntity<>(clientList, HttpStatus.OK);
+    }
+    @RequestMapping(path = "/{idClient}",method = RequestMethod.GET)
+    public ResponseEntity<?> getClientById(@PathVariable("idClient") Integer id) {
+        ClientDto clientDto =this.clientBl.findClientById(id);
+        if(Objects.nonNull(clientDto)){
+            return new ResponseEntity<>(clientDto, HttpStatus.OK);
+        }else{
+
+            return new ResponseEntity<>("NO SE ENCONTRO CLIENTE", HttpStatus.BAD_REQUEST);
+        }
     }
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> postClients(@RequestBody ClientDto clientDto) {

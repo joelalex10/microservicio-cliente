@@ -34,6 +34,17 @@ public class AddressController {
         LOGGER.info("Invocacion exitosa para obtener el listado de autores {}", addressAllList);
         return new ResponseEntity<>(addressAllList, HttpStatus.OK);
     }
+    @RequestMapping(path = "/{idAddress}",method = RequestMethod.GET)
+    public ResponseEntity<?> getAddressById(@PathVariable("idAddress") Integer id) {
+        AddressDto addressDto = this.addressBl.findAddressById(id);
+        if(Objects.nonNull(addressDto)){
+            return new ResponseEntity<>(addressDto, HttpStatus.OK);
+        }else{
+
+            return new ResponseEntity<>("NO SE ENCONTRO DIRECCION", HttpStatus.BAD_REQUEST);
+        }
+
+    }
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> postClients(@RequestBody AddressDto addressDto) {
         Address address = this.addressBl.insertNewAddress(addressDto);

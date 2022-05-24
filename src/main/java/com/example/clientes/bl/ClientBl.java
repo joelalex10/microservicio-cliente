@@ -1,6 +1,8 @@
 package com.example.clientes.bl;
 
+import com.example.clientes.dto.AddressDto;
 import com.example.clientes.dto.ClientDto;
+import com.example.clientes.entity.Address;
 import com.example.clientes.entity.Client;
 import com.example.clientes.repository.ClientRepository;
 import org.slf4j.Logger;
@@ -24,17 +26,39 @@ public class ClientBl {
     public List<ClientDto> findAllClients() {
         LOGGER.info("DATABASE: Iniciando consulta para obtener la lista de clientes");
         List<Client> clientList = (List<Client>) this.clientRepository.findAll();
-        List<ClientDto> clientDtoList =clientList.stream().map(client -> new ClientDto(
-                client.getClientId(),
-                client.getName(),
-                client.getLastname(),
-                client.getEmail(),
-                client.getPhone(),
-                client.getAddressId())
-        ).collect(Collectors.toList());
+        List<ClientDto> clientDtoList =clientList.stream()
+                .filter(
+                        data ->  data.getStatus()==1
+                ).map(client -> new ClientDto(
+                        client.getClientId(),
+                        client.getName(),
+                        client.getLastname(),
+                        client.getEmail(),
+                        client.getPhone(),
+                        client.getAddressId())
+                ).collect(Collectors.toList());
 
         LOGGER.info("DATABASE-SUCCESS: Consulta exitosa para obtener el listado de clientes {}", clientDtoList);
         return clientDtoList;
+    }
+    public ClientDto findClientById(Integer clientId){
+        Optional<Client> optionalClient= this.clientRepository.findById(clientId);
+        if(optionalClient.isPresent()){
+            if(optionalClient.get().getStatus()==1){
+                ClientDto clientDto = new ClientDto();
+                clientDto.setClientId(optionalClient.get().getClientId());
+                clientDto.setAddressId(optionalClient.get().getAddressId());
+                clientDto.setEmail(optionalClient.get().getEmail());
+                clientDto.setName(optionalClient.get().getName());
+                clientDto.setLastname(optionalClient.get().getLastname());
+                clientDto.setPhone(optionalClient.get().getPhone());
+                return clientDto;
+            }else{
+                return null;
+            }
+        }else{
+            return null;
+        }
     }
     public Client insertNewClient(ClientDto clientDto){
         Client client=new Client();
