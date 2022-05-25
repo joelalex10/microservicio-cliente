@@ -1,6 +1,5 @@
 package com.example.clientes.dto;
 
-import javax.persistence.*;
 
 public class AddressDto {
     private int addressId;

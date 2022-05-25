@@ -1,8 +1,8 @@
 spring:
   application:
-    name: ms-book
+    name: ms-client
   datasource:
-    #    platform: postgres
+#    platform: postgres
     url: ${URL_DATABASE:jdbc:postgresql://localhost:5432/library_db}
     username: postgres
     password: postgres
@@ -15,7 +15,6 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQL81Dialect
 server:
-  port: 7000
-
+  port: 8743
+  
 key: ABCDabcd1234
-
