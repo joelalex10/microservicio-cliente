@@ -12,11 +12,11 @@ POST http://localhost:8743/v1/api/client
 Content-Type: application/json
 
 {
-  "name": "Ricardo",
-  "lastname": "Sornoza",
-  "email": "ricsor@gmail.com",
-  "phone": "79011432",
-  "addressId": 3
+  "name":"Evvy",
+  "lastname":"Tampion",
+  "email":"etampionj@ebay.co.uk",
+  "phone":"56729319",
+  "addressId":14
 }
 
 ####
