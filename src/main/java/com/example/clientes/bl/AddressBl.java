@@ -2,6 +2,7 @@ package com.example.clientes.bl;
 
 import com.example.clientes.dto.AddressDto;
 import com.example.clientes.entity.Address;
+import com.example.clientes.entity.Client;
 import com.example.clientes.repository.AddressRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,4 +77,16 @@ public class AddressBl {
         }
     }
 
+    public Address updateAddress(Integer id,AddressDto addressDto) {
+        Optional<Address> optionalAddress= this.addressRepository.findById(id);
+        if(optionalAddress.isPresent()){
+            Address address=optionalAddress.get();
+            address.setAddress(addressDto.getAddress());
+            address.setPostalCode(addressDto.getPostalCode());
+            this.addressRepository.save(address);
+            return address;
+        }else{
+            return null;
+        }
+    }
 }

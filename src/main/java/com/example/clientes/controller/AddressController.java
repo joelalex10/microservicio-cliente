@@ -46,7 +46,7 @@ public class AddressController {
 
     }
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> postClients(@RequestBody AddressDto addressDto) {
+    public ResponseEntity<?> postAddress(@RequestBody AddressDto addressDto) {
         Address address = this.addressBl.insertNewAddress(addressDto);
         if(Objects.nonNull(address)){
             return new ResponseEntity<>(address, HttpStatus.CREATED);
@@ -56,13 +56,26 @@ public class AddressController {
         }
     }
     @RequestMapping(path = "/{idAddress}",method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteClient(@PathVariable("idAddress") Integer id) {
+    public ResponseEntity<?> deleteAddress(@PathVariable("idAddress") Integer id) {
         boolean result = this.addressBl.deleteAddress(id);
         if(result){
             return new ResponseEntity<>("SE ELIMINO DIRECCION CORRECTAMENTE",
                     HttpStatus.OK);
         }else{
             return new ResponseEntity<>("NO SE ENCONTRO DIRECCION",
+                    HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    @RequestMapping(path = "/{idAddress}",method = RequestMethod.PUT)
+    public ResponseEntity<?> putAddress(@PathVariable("idAddress") Integer id,
+            @RequestBody AddressDto addressDto) {
+        Address address = this.addressBl.updateAddress(id,addressDto);
+        if(Objects.nonNull(address)){
+            return new ResponseEntity<>(address, HttpStatus.CREATED);
+        }else{
+            return new ResponseEntity<>("NO SE PUEDO REALIZAR OPERACION",
                     HttpStatus.BAD_REQUEST);
         }
     }
