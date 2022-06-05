@@ -2,8 +2,8 @@ package com.example.clientes.bl;
 
 import com.example.clientes.dto.AddressDto;
 import com.example.clientes.dto.ClientDetailsDto;
+
 import com.example.clientes.dto.ClientDto;
-import com.example.clientes.entity.Address;
 import com.example.clientes.entity.Client;
 import com.example.clientes.repository.ClientRepository;
 import org.slf4j.Logger;
@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 @Service

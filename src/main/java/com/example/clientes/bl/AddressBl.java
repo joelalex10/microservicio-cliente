@@ -1,11 +1,8 @@
 package com.example.clientes.bl;
 
 import com.example.clientes.dto.AddressDto;
-import com.example.clientes.dto.ClientDto;
 import com.example.clientes.entity.Address;
-import com.example.clientes.entity.Client;
 import com.example.clientes.repository.AddressRepository;
-import com.example.clientes.repository.ClientRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

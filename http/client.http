@@ -1,17 +1,22 @@
-GET http://localhost:7000/v1/api/client
+GET http://localhost:8743/v1/api/client
 Accept: application/json
 
 ####
 
+<<<<<<< HEAD
 GET http://localhost:7000/v1/api/client/8
+=======
+GET http://localhost:8743/v1/api/client/5
+>>>>>>> ce0a2a6fc7d506fd6a679aee71656d56bca03a22
 Accept: application/json
 
 ####
 
-POST http://localhost:7000/v1/api/client
+POST http://localhost:8743/v1/api/client
 Content-Type: application/json
 
 {
+<<<<<<< HEAD
   "name": "Diego",
   "lastname": "Sanchez Luna",
   "email": "disan@gmail.com",
@@ -21,6 +26,17 @@ Content-Type: application/json
 
 ####
 DELETE http://localhost:7000/v1/api/client/8
+=======
+  "name":"Evvy",
+  "lastname":"Tampion",
+  "email":"etampionj@ebay.co.uk",
+  "phone":"56729319",
+  "addressId":14
+}
+
+####
+DELETE http://localhost:8743/v1/api/client/7
+>>>>>>> ce0a2a6fc7d506fd6a679aee71656d56bca03a22
 Content-Type: application/json
 ####
 
