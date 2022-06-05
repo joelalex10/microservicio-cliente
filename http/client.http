@@ -3,7 +3,7 @@ Accept: application/json
 
 ####
 
-GET http://localhost:7000/v1/api/client/5
+GET http://localhost:7000/v1/api/client/8
 Accept: application/json
 
 ####
@@ -12,13 +12,31 @@ POST http://localhost:7000/v1/api/client
 Content-Type: application/json
 
 {
-  "name": "Ricardo",
-  "lastname": "Sornoza",
-  "email": "ricsor@gmail.com",
+  "name": "Diego",
+  "lastname": "Sanchez Luna",
+  "email": "disan@gmail.com",
   "phone": "79011432",
   "addressId": 3
 }
 
 ####
-DELETE http://localhost:7000/v1/api/client/7
+DELETE http://localhost:7000/v1/api/client/8
 Content-Type: application/json
+####
+
+GET http://localhost:7000/v1/api/client/details
+Accept: application/json
+
+####
+PUT http://localhost:7000/v1/api/client/25
+Content-Type: application/json
+
+{
+  "name": "Diego Armando",
+  "lastname": "Sanchez Luna",
+  "email": "disan@gmail.com",
+  "phone": "79011432",
+  "addressId": 3
+}
+
+####

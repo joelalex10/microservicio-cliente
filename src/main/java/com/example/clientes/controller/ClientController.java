@@ -2,6 +2,7 @@ package com.example.clientes.controller;
 
 import com.example.clientes.bl.ClientBl;
 import com.example.clientes.dto.AddressDto;
+import com.example.clientes.dto.ClientDetailsDto;
 import com.example.clientes.dto.ClientDto;
 import com.example.clientes.entity.Client;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
 @RequestMapping("/v1/api/client")
 public class ClientController {
 
@@ -35,6 +37,15 @@ public class ClientController {
         LOGGER.info("Invocacion exitosa para obtener el listado de autores {}", clientList);
         return new ResponseEntity<>(clientList, HttpStatus.OK);
     }
+
+    @RequestMapping(path = "/details",method = RequestMethod.GET)
+    public ResponseEntity<?> getAllClientsDetails() {
+        //LOGGER.info("Invocando al servicio REST para obtener el listado de autores con KEY: {}", key);
+        List<ClientDetailsDto> clientList = clientBl.findAllClientDetails();
+        LOGGER.info("Invocacion exitosa para obtener el listado de autores {}", clientList);
+        return new ResponseEntity<>(clientList, HttpStatus.OK);
+    }
+
     @RequestMapping(path = "/{idClient}",method = RequestMethod.GET)
     public ResponseEntity<?> getClientById(@PathVariable("idClient") Integer id) {
         ClientDto clientDto =this.clientBl.findClientById(id);
@@ -45,6 +56,7 @@ public class ClientController {
             return new ResponseEntity<>("NO SE ENCONTRO CLIENTE", HttpStatus.BAD_REQUEST);
         }
     }
+
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> postClients(@RequestBody ClientDto clientDto) {
         Client client = this.clientBl.insertNewClient(clientDto);
@@ -55,6 +67,20 @@ public class ClientController {
                     HttpStatus.BAD_REQUEST);
         }
     }
+
+    @RequestMapping(path = "/{idClient}",method = RequestMethod.PUT)
+    public ResponseEntity<?> deleteClient(@PathVariable("idClient") Integer id,@RequestBody ClientDto clientDto) {
+        Client result = this.clientBl.updateClient(id,clientDto);
+        LOGGER.info(result.toString());
+        if(Objects.nonNull(result)){
+            return new ResponseEntity<>("SE ACTUALIZO CLIENTE CORRECTAMENTE",
+                    HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("NO SE ENCONTRO CLIENTE",
+                    HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @RequestMapping(path = "/{idClient}",method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteClient(@PathVariable("idClient") Integer id) {
         boolean result = this.clientBl.deleteClient(id);

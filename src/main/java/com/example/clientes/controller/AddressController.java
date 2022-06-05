@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
 @RequestMapping("/v1/api/address")
 public class AddressController {
     private static Logger LOGGER = LoggerFactory.getLogger(ClientBl.class);
@@ -34,6 +35,7 @@ public class AddressController {
         LOGGER.info("Invocacion exitosa para obtener el listado de autores {}", addressAllList);
         return new ResponseEntity<>(addressAllList, HttpStatus.OK);
     }
+
     @RequestMapping(path = "/{idAddress}",method = RequestMethod.GET)
     public ResponseEntity<?> getAddressById(@PathVariable("idAddress") Integer id) {
         AddressDto addressDto = this.addressBl.findAddressById(id);

@@ -1,6 +1,7 @@
 package com.example.clientes.bl;
 
 import com.example.clientes.dto.AddressDto;
+import com.example.clientes.dto.ClientDetailsDto;
 import com.example.clientes.dto.ClientDto;
 import com.example.clientes.entity.Address;
 import com.example.clientes.entity.Client;
@@ -83,6 +84,24 @@ public class ClientBl {
             return true;
         }else{
             return false;
+        }
+    }
+    public List<ClientDetailsDto>findAllClientDetails(){
+        return this.clientRepository.findAllClientsDeatils();
+    }
+
+    public Client updateClient(Integer id, ClientDto clientDto) {
+        Optional<Client> optionalClient= this.clientRepository.findById(id);
+        if(optionalClient.isPresent()){
+            Client client=optionalClient.get();
+            client.setName(clientDto.getName());
+            client.setLastname(clientDto.getLastname());
+            client.setPhone(clientDto.getPhone());
+            client.setAddressId(clientDto.getAddressId());
+            this.clientRepository.save(client);
+            return client;
+        }else{
+            return null;
         }
     }
 }
